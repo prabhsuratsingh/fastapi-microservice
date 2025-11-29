@@ -43,7 +43,9 @@ class Order(HashModel):
 
 @app.get("/orders/{pk}")
 def get(pk: str):
-    return Order.get(pk)
+    order = Order.get(pk)
+    redis.xadd("refund_order", [], '*')
+    return order
 
 @app.post("/orders")  
 async def create(request: Request, background_tasks: BackgroundTasks):
