@@ -69,6 +69,7 @@ def order_completed(order: Order):
     time.sleep(5)
     order.status = 'completed'
     order.save()
+    redis.xadd("order_completed", order.model_dump(), '*')
 
 if __name__ == "__main__":
     import uvicorn

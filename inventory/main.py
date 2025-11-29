@@ -32,6 +32,8 @@ class Product(HashModel):
     
     class Meta:
         database=redis
+        model_key_prefix = "Product"
+
 
 @app.get("/products")
 def all():
